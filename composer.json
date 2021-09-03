@@ -1,0 +1,18 @@
+{
+    "name": "fishingboy/madump",
+    "description": "Magento Data Object Dump Tool",
+    "keywords": ["magento", "var_dump", "dd"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fishingboy",
+            "email": "et282523@hotmail.com"
+        }
+    ],
+    "version": "0.0.1",
+    "autoload": {
+        "psr-4": {
+            "Fishingboy\\MaDump\\": "/src"
+        }
+    }
+}
