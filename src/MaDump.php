@@ -7,5 +7,9 @@ namespace Fishingboy\MaDump;
  */
 class MaDump
 {
+    public function dump()
+    {
+        return true;
+    }
 }
 
