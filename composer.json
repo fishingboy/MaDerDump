@@ -12,10 +12,10 @@
     "version": "0.0.1",
     "autoload": {
         "psr-4": {
-            "Fishingboy\\MaDump\\": "/src"
+            "Fishingboy\\MaDump\\": "src"
         }
     },
-    "require-dev": {
+    "require": {
         "phpunit/phpunit": "~6.2.0"
     }
 }
