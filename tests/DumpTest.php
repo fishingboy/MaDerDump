@@ -27,8 +27,31 @@ class DumpTest extends TestCase
         $response = $dump->dump($object);
         $this->assertTrue($response);
     }
+
+    public function test_is_normal_array()
+    {
+        $dump = new MaDump();
+        $response = $dump->isNormalArray([1,2,3]);
+        $this->assertTrue($response);
+    }
+
+    public function test_is_normal_array2()
+    {
+        $dump = new MaDump();
+        $response = $dump->isNormalArray([
+            "a" => 1,
+            "b" => 1,
+            "c" => 1,
+        ]);
+        $this->assertTrue($response);
+    }
 }
 
 class Car {
     public $length = 1;
+
+    public function getLength(): int
+    {
+        return $this->length;
+    }
 }
