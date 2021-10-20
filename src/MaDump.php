@@ -38,7 +38,14 @@ class MaDump
             echo "Array => \n";
             $attributes = [];
             foreach ($data as $key => $value) {
-                $attributes[] = $this->getPadding($deep) . ".$key";
+                if (is_object($value)) {
+                    $value_output = "(" . get_class($value) . ")";
+                } else if (is_array($value)) {
+                    $value_output = "(Array)";
+                } else {
+                    $value_output = "=> $value";
+                }
+                $attributes[] = $this->getPadding($deep) . ".$key $value_output";
             }
         }
 
