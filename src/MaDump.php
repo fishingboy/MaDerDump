@@ -10,35 +10,41 @@ class MaDump
     public function dump($data, $deep = 0)
     {
         echo "<pre>";
+        $attributes = [];
         if (is_object($data)) {
-            echo get_class($data) . "<br>\n";
+            echo get_class($data) . "\n";
             foreach ($data as $key => $value) {
                 if (is_object($value)) {
                     $class = get_class($value);
-                    echo $this->getPadding($deep) . ".$key + ($class) <br>\n";
+                    $attributes[] = $this->getPadding($deep) . ".$key + ($class)";
                 } else if (is_array($value)) {
                     if ($this->isNormalArray($value)) {
-                        echo $this->getPadding($deep) . ".$key (Array) <br>\n";
+                        $attributes[] = $this->getPadding($deep) . ".$key (Array)";
                     } else {
-                        echo $this->getPadding($deep) . ".$key + (Array) <br>\n";
+                        $attributes[] = $this->getPadding($deep) . ".$key + (Array)";
                     }
                 } else {
-                    echo $this->getPadding($deep) . ".$key = {$value} <br>\n";
+                    $attributes[] = $this->getPadding($deep) . ".$key = {$value}";
                 }
             }
 
             $methods = get_class_methods($data);
             if (count($methods)) {
                 foreach ($methods as $method) {
-                    echo $this->getPadding($deep) . "->$method()<br>\n";
+                    $attributes[] = $this->getPadding($deep) . "->$method()";
                 }
             }
         } else if (is_array($data)) {
-            echo "Array => <br>\n";
+            echo "Array => \n";
+            $attributes = [];
             foreach ($data as $key => $value) {
-                echo $this->getPadding($deep) . ".$key<br>\n";
+                $attributes[] = $this->getPadding($deep) . ".$key";
             }
         }
+
+        sort($attributes);
+        echo implode("\n", $attributes);
+
         return true;
     }
 
