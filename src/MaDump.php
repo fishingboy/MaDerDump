@@ -51,6 +51,7 @@ class MaDump
 
         sort($attributes);
         echo implode("\n", $attributes);
+        echo "</pre>";
 
         return true;
     }
