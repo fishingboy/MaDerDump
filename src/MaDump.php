@@ -49,6 +49,9 @@ class MaDump
                 $key_output = is_numeric($key) ? "[$key]" : ".$key";
                 $attributes[] = $this->getPadding($deep) . "$key_output $value_output";
             }
+        } else {
+            echo $data;
+            echo " (" . gettype($data) . ")";
         }
 
         sort($attributes);
