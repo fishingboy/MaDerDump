@@ -40,13 +40,14 @@ class MaDump
             $attributes = [];
             foreach ($data as $key => $value) {
                 if (is_object($value)) {
-                    $value_output = "(" . get_class($value) . ")";
+                    $value_output = "=> (" . get_class($value) . ")";
                 } else if (is_array($value)) {
-                    $value_output = "(Array)";
+                    $value_output = "=> (Array)";
                 } else {
                     $value_output = "=> $value";
                 }
-                $attributes[] = $this->getPadding($deep) . ".$key $value_output";
+                $key_output = is_numeric($key) ? "[$key]" : ".$key";
+                $attributes[] = $this->getPadding($deep) . "$key_output $value_output";
             }
         }
 
