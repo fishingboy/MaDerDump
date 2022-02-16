@@ -35,7 +35,8 @@ class MaDump
                 }
             }
         } else if (is_array($data)) {
-            echo "Array => \n";
+            $count = count($data);
+            echo "Array($count) => \n";
             $attributes = [];
             foreach ($data as $key => $value) {
                 if (is_object($value)) {
