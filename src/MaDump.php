@@ -9,7 +9,7 @@ class MaDump
 {
     public function dump($data, $deep = 0)
     {
-        echo "<pre>";
+        $output = "<pre>";
         $attributes = [];
         if (is_object($data)) {
             echo get_class($data) . "\n";
@@ -36,7 +36,7 @@ class MaDump
             }
         } else if (is_array($data)) {
             $count = count($data);
-            echo "Array($count) => \n";
+            $output .= "Array($count) => \n";
             $attributes = [];
             foreach ($data as $key => $value) {
                 if (is_object($value)) {
@@ -50,15 +50,16 @@ class MaDump
                 $attributes[] = $this->getPadding($deep) . "$key_output $value_output";
             }
         } else {
-            echo $data;
-            echo " (" . gettype($data) . ")";
+            $output .= $data;
+            $output .= " (" . gettype($data) . ")";
         }
 
         sort($attributes);
-        echo implode("\n", $attributes);
-        echo "</pre>";
+        $output .= implode("\n", $attributes);
+        $output .= "</pre>";
 
-        return true;
+        echo $output;
+        return $output;
     }
 
     public function getPadding($deep): string
