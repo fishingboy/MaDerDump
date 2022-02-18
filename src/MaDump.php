@@ -12,7 +12,7 @@ class MaDump
         $output = "<pre>";
         $attributes = [];
         if (is_object($data)) {
-            echo get_class($data) . "\n";
+            $output .= get_class($data) . "\n";
             foreach ($data as $key => $value) {
                 if (is_object($value)) {
                     $class = get_class($value);
