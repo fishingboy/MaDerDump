@@ -46,8 +46,7 @@ class MaDump
                 } else {
                     $value_output = "=> $value";
                 }
-                $key_output = is_numeric($key) ? "[$key]" : ".$key";
-                $attributes[] = $this->getPadding($deep) . "$key_output $value_output";
+                $attributes[] = $this->getPadding($deep) . "[{$key}] $value_output";
             }
         } else {
             $output .= $data;
