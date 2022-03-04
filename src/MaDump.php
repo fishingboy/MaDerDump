@@ -7,7 +7,7 @@ namespace Fishingboy\MaDump;
  */
 class MaDump
 {
-    public function dump($data, $deep = 0)
+    public function dump($data, $return_value = false, $deep = 0)
     {
         $output = "<pre>";
         $attributes = [];
@@ -57,8 +57,11 @@ class MaDump
         $output .= implode("\n", $attributes);
         $output .= "</pre>";
 
-        echo $output;
-        return $output;
+        if ($return_value) {
+            return $output;
+        } else {
+            echo $output;
+        }
     }
 
     public function getPadding($deep): string
