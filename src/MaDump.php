@@ -7,7 +7,14 @@ namespace Fishingboy\MaDump;
  */
 class MaDump
 {
-    public function dump($data, $return_value = false, $deep = 0)
+    /**
+     * dump data
+     * @param $data
+     * @param false $return_value
+     * @param int $deep
+     * @return string|void
+     */
+    public function dump($data, bool $return_value = false, int $deep = 0)
     {
         $output = "<pre>";
         $attributes = [];
