@@ -14,7 +14,7 @@ class MaDump
      * @param int $deep
      * @return string|void
      */
-    public function dump($data, bool $return_value = false, int $deep = 0)
+    public static function dump($data, bool $return_value = false, int $deep = 0)
     {
         $output = "<pre>";
         $attributes = [];
@@ -23,22 +23,22 @@ class MaDump
             foreach ($data as $key => $value) {
                 if (is_object($value)) {
                     $class = get_class($value);
-                    $attributes[] = $this->getPadding($deep) . ".$key + ($class)";
+                    $attributes[] = self::getPadding($deep) . ".$key + ($class)";
                 } else if (is_array($value)) {
-                    if ($this->isNormalArray($value)) {
-                        $attributes[] = $this->getPadding($deep) . ".$key (Array)";
+                    if (self::isNormalArray($value)) {
+                        $attributes[] = self::getPadding($deep) . ".$key (Array)";
                     } else {
-                        $attributes[] = $this->getPadding($deep) . ".$key + (Array)";
+                        $attributes[] = self::getPadding($deep) . ".$key + (Array)";
                     }
                 } else {
-                    $attributes[] = $this->getPadding($deep) . ".$key = {$value}";
+                    $attributes[] = self::getPadding($deep) . ".$key = {$value}";
                 }
             }
 
             $methods = get_class_methods($data);
             if (count($methods)) {
                 foreach ($methods as $method) {
-                    $attributes[] = $this->getPadding($deep) . "->$method()";
+                    $attributes[] = self::getPadding($deep) . "->$method()";
                 }
             }
         } else if (is_array($data)) {
@@ -53,7 +53,7 @@ class MaDump
                 } else {
                     $value_output = "=> $value";
                 }
-                $attributes[] = $this->getPadding($deep) . "[{$key}] $value_output";
+                $attributes[] = self::getPadding($deep) . "[{$key}] $value_output";
             }
         } else {
             $output .= $data;
@@ -71,12 +71,12 @@ class MaDump
         }
     }
 
-    public function getPadding($deep): string
+    public static function getPadding($deep): string
     {
         return str_pad(" ", ($deep + 1) * 4);
     }
 
-    public function isNormalArray($array): bool
+    public static function isNormalArray($array): bool
     {
         foreach ($array as $key => $value) {
             if ($key != (string) intval($key)) {
