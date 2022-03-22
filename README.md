@@ -56,6 +56,21 @@ composer require fishingboy/madump
    MaDump::dump($product);
    exit;
    ```
+   
+4. 通常 trace code 的時候過程會長這樣
+    ```php
+    MaDump::dump($product);
+    ```
+   
+    ```php
+    MaDump::dump($product->getCustomAttributes());
+    ```
+   
+    ```php
+    MaDump::dump($product->getCustomAttributes()[0]);
+    ```
+   
+    自己在程式一層一層往下去找
 
 ## Output 說明
 1. 如果是物件
