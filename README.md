@@ -13,7 +13,8 @@ composer require fishingboy/madump
     ```
    
     Output:
-    ```
+    ```html
+    <pre>
     Magento\Catalog\Model\Product\Interceptor
         ->___callParent()
         ->___init()
@@ -39,6 +40,7 @@ composer require fishingboy/madump
         ->canBeShowInCategory()
         ->canConfigure()
         ...
+    </pre>
     ```
 
 2. 記在 Log
@@ -54,3 +56,69 @@ composer require fishingboy/madump
    MaDump::dump($product);
    exit;
    ```
+
+## Output 說明
+1. 如果是物件
+    ```html
+    <pre>
+    Magento\Catalog\Model\Product\Interceptor
+        ->___callParent()
+        ->___init()
+        ->__call()
+        ->__construct()
+        ->__sleep()
+        ->__toArray()
+        ->__wakeup()
+        ->addAttributeUpdate()
+        ->addCustomOption()
+        ->addData()
+        ->addImageToMediaGallery()
+        ->addOption()
+        ->afterCommitCallback()
+        ->afterDelete()
+        ->afterDeleteCommit()
+        ->afterLoad()
+        ->afterSave()
+        ->beforeDelete()
+        ->beforeLoad()
+        ->beforeSave()
+        ->canAffectOptions()
+        ->canBeShowInCategory()
+        ->canConfigure()
+        ...
+    </pre>
+    ```
+   
+2. 如果是陣列
+    ```html
+    <pre>
+    Array(52) => 
+    [0] => (Magento\Framework\Api\AttributeValue)
+    [10] => (Magento\Framework\Api\AttributeValue)
+    [11] => (Magento\Framework\Api\AttributeValue)
+    [12] => (Magento\Framework\Api\AttributeValue)
+    ...
+    </pre>
+    ```
+   
+    或是這樣
+    ```html
+    <pre>
+    Array(2) => 
+    [0] => 101
+    [1] => 102
+    </pre>
+    ```
+   
+3. 如果只是一般的值
+    ```html
+    <pre>1 (integer)</pre>
+    ```
+
+    ```html
+    <pre>1 (boolean)</pre>
+    ```
+
+    ```html
+    <pre>sku-123 (string)</pre>
+    ```
