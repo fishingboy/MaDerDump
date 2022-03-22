@@ -43,7 +43,7 @@ composer require fishingboy/madump
     </pre>
     ```
 
-2. 記在 Log
+2. 記在 Log (把 output 內容 return 回來)
     ```php
     use Fishingboy\MaDump\MaDump; 
     $product_dump = MaDump::dump($product, true);
