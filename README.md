@@ -1,4 +1,8 @@
-# MaDerDump
+# MaDump
+
+## 為什麼需要 MaDump ?
+
+因為 Magento 的物件如果直接用 var_dump() 或是 print_r() ，都會出現記憶體不足的錯誤，所以寫了一個 dump 工具只 dump 出物件的第一層方便開發。
 
 ## 安裝
 ```bash
