@@ -51,6 +51,6 @@ composer require fishingboy/madump
 3. 有時候可能需要直接中斷執行，請直接用 exit
     ```php
    use Fishingboy\MaDump\MaDump;
-   (new MaDump())->dump($product, true);
+   (new MaDump())->dump($product);
    exit;
    ```
