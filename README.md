@@ -57,7 +57,7 @@ composer require fishingboy/madump
    exit;
    ```
    
-4. 通常 trace code 的時候過程會長這樣
+4. 通常 Trace Code 的時候過程會長這樣
     ```php
     MaDump::dump($product);
     ```
