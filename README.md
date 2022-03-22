@@ -58,14 +58,18 @@ composer require fishingboy/madump
    ```
    
 4. 通常 Trace Code 的時候過程會長這樣
+
+    step.1
     ```php
     MaDump::dump($product);
     ```
    
+    step.2
     ```php
     MaDump::dump($product->getCustomAttributes());
     ```
    
+    step.3
     ```php
     MaDump::dump($product->getCustomAttributes()[0]);
     ```
