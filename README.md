@@ -102,7 +102,13 @@ composer require fishingboy/madump
     </pre>
     ```
    
-    如果是 getter method 而且不需要帶參數的話，會直接把呼叫後的值秀出來看。
+    如果是 getter method 而且不需要帶參數的話，會直接把呼叫後的值秀出來看，像這樣：
+
+    ```html
+        ->getAttributeSetId() : 16 (string)
+        ->getCategoryCollection() : Magento\Catalog\Model\ResourceModel\Category\Collection\Interceptor
+        ->getCacheIdTags() : array
+    ```
 
 3. 如果是陣列
     ```html
