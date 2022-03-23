@@ -85,6 +85,11 @@ class Car {
     {
         return $this->light;
     }
+
+    private function getPrivateName(): string
+    {
+        return "MaDerDump";
+    }
 }
 
 class Light {

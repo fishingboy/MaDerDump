@@ -11,6 +11,12 @@ composer require fishingboy/madump
 
 ## 使用方法
 1. 直接輸出
+    ```php
+    use Fishingboy\MaDump\MaDump; 
+    MaDump::dump($product);
+    ```
+
+   Output:
     ```html
    <pre>
    Magento\Catalog\Model\Product\Interceptor
