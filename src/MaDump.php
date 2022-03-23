@@ -40,19 +40,26 @@ class MaDump
             $methods = get_class_methods($data);
             if (count($methods)) {
                 foreach ($methods as $method) {
-                    $attribute_output = self::getPadding($deep) . "->$method()";
+                    $method_params = self::getMethodParams($data, $method);
+                    $attribute_output = self::getPadding($deep) . "->$method({$method_params})";
                     if (preg_match("/^[a-z]+[A-Z]+/", $method)) {
-                        $method_return = $data->$method();
-                        if (is_object($method_return)) {
-                            $attribute_output .= " : " . get_class($method_return);
-                        } elseif (is_array($method_return)) {
-                            if (self::isNormalArray($method_return)) {
-                                $attribute_output .= " : array";
-                            } else {
-                                $attribute_output .= " : key value array";
+                        try {
+                            if (self::isNoParamMethod($data, $method)) {
+                                $method_return = $data->$method();
+                                if (is_object($method_return)) {
+                                    $attribute_output .= " : " . get_class($method_return);
+                                } elseif (is_array($method_return)) {
+                                    if (self::isNormalArray($method_return)) {
+                                        $attribute_output .= " : array";
+                                    } else {
+                                        $attribute_output .= " : key value array";
+                                    }
+                                } else {
+                                    $attribute_output .= " : " . self::dumpValue($method_return);
+                                }
                             }
-                        } else {
-                            $attribute_output .= " : " . self::dumpValue($method_return);
+                        } catch (\Exception $e) {
+                        } catch (\ArgumentCountError $e) {
                         }
                     }
                     $attributes[] = $attribute_output;
@@ -111,5 +118,27 @@ class MaDump
             }
         }
         return true;
+    }
+
+    private static function isNoParamMethod($class, $method)
+    {
+        $method_info = new \ReflectionMethod($class, $method);
+        $params = $method_info->getParameters();
+        return (count($params) == 0);
+    }
+
+    private static function getMethodParams($data, string $method)
+    {
+        $method_info = new \ReflectionMethod($data, $method);
+        $params = $method_info->getParameters();
+        $output = [];
+        foreach ($params as $param) {
+            if ($param->hasType()) {
+                $output[] = "{$param->getType()} \${$param->getName()}";
+            } else {
+                $output[] = "\${$param->getName()}";
+            }
+        }
+        return implode(", ", $output);
     }
 }

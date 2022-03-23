@@ -46,6 +46,7 @@ class DumpTest extends TestCase
     ->__construct()
     ->getLength() : 1 (integer)
     ->getLight() : Light
+    ->getLight2(bool \$flag, int \$on)
     [attrs] (Key Value Array)
     [items] (Array)
     [length] => 1 (integer)
@@ -76,6 +77,11 @@ class Car {
     }
 
     public function getLight(): Light
+    {
+        return $this->light;
+    }
+
+    public function getLight2(bool $flag, int $on): Light
     {
         return $this->light;
     }
