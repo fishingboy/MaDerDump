@@ -11,38 +11,30 @@ composer require fishingboy/madump
 
 ## 使用方法
 1. 直接輸出
-    ```php
-    use Fishingboy\MaDump\MaDump; 
-    MaDump::dump($product);
-    ```
-   
-    Output:
     ```html
-    <pre>
-    Magento\Catalog\Model\Product\Interceptor
-        ->___callParent()
-        ->___init()
-        ->__call()
-        ->__construct()
-        ->__sleep()
-        ->__toArray()
-        ->__wakeup()
-        ->addAttributeUpdate()
-        ->addCustomOption()
-        ->addData()
-        ->addImageToMediaGallery()
-        ->addOption()
+   <pre>
+   Magento\Catalog\Model\Product\Interceptor
+        ->__construct(Magento\Framework\Model\Context $context, Magento\Framework\Registry $registry, Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory, Magento\Framework\Api\AttributeValueFactory $customAttributeFactory, Magento\Store\Model\StoreManagerInterface $storeManager, Magento\Catalog\Api\ProductAttributeRepositoryInterface $metadataService, Magento\Catalog\Model\Product\Url $url, Magento\Catalog\Model\Product\Link $productLink, Magento\Catalog\Model\Product\Configuration\Item\OptionFactory $itemOptionFactory, Magento\CatalogInventory\Api\Data\StockItemInterfaceFactory $stockItemFactory, Magento\Catalog\Model\Product\OptionFactory $catalogProductOptionFactory, Magento\Catalog\Model\Product\Visibility $catalogProductVisibility, Magento\Catalog\Model\Product\Attribute\Source\Status $catalogProductStatus, Magento\Catalog\Model\Product\Media\Config $catalogProductMediaConfig, Magento\Catalog\Model\Product\Type $catalogProductType, Magento\Framework\Module\Manager $moduleManager, Magento\Catalog\Helper\Product $catalogProduct, Magento\Catalog\Model\ResourceModel\Product $resource, Magento\Catalog\Model\ResourceModel\Product\Collection $resourceCollection, Magento\Framework\Data\CollectionFactory $collectionFactory, Magento\Framework\Filesystem $filesystem, Magento\Framework\Indexer\IndexerRegistry $indexerRegistry, Magento\Catalog\Model\Indexer\Product\Flat\Processor $productFlatIndexerProcessor, Magento\Catalog\Model\Indexer\Product\Price\Processor $productPriceIndexerProcessor, Magento\Catalog\Model\Indexer\Product\Eav\Processor $productEavIndexerProcessor, Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository, Magento\Catalog\Model\Product\Image\CacheFactory $imageCacheFactory, Magento\Catalog\Model\ProductLink\CollectionProvider $entityCollectionProvider, Magento\Catalog\Model\Product\LinkTypeProvider $linkTypeProvider, Magento\Catalog\Api\Data\ProductLinkInterfaceFactory $productLinkFactory, Magento\Catalog\Api\Data\ProductLinkExtensionFactory $productLinkExtensionFactory, Magento\Catalog\Model\Product\Attribute\Backend\Media\EntryConverterPool $mediaGalleryEntryConverterPool, Magento\Framework\Api\DataObjectHelper $dataObjectHelper, Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface $joinProcessor, array $data, Magento\Eav\Model\Config $config)
+        ->addAttributeUpdate($code, $value, $store)
+        ->addCustomOption($code, $value, $product)
+        ->addData(array $arr)
+        ->addImageToMediaGallery($file, $mediaAttribute, $move, $exclude)
+        ->addOption(Magento\Catalog\Model\Product\Option $option)
         ->afterCommitCallback()
         ->afterDelete()
         ->afterDeleteCommit()
-        ->afterLoad()
-        ->afterSave()
-        ->beforeDelete()
-        ->beforeLoad()
-        ->beforeSave()
-        ->canAffectOptions()
-        ->canBeShowInCategory()
-        ->canConfigure()
+        ->formatUrlKey($str)
+        ->fromArray(array $data)
+        ->getAttributeDefaultValue($attributeCode)
+        ->getAttributeSetId() : 16 (string)
+        ->getAttributeText($attributeCode)
+        ->getAttributes($groupId, $skipSuper)
+        ->getAvailableInCategories() : array
+        ->getCacheIdTags() : array
+        ->getCacheTags() : array
+        ->getCalculatedFinalPrice() :  (NULL)
+        ->getCategory() :  (NULL)
+        ->getCategoryCollection() : Magento\Catalog\Model\ResourceModel\Category\Collection\Interceptor
         ...
     </pre>
     ```
@@ -85,34 +77,34 @@ composer require fishingboy/madump
     ```html
     <pre>
     Magento\Catalog\Model\Product\Interceptor
-        ->___callParent()
-        ->___init()
-        ->__call()
-        ->__construct()
-        ->__sleep()
-        ->__toArray()
-        ->__wakeup()
-        ->addAttributeUpdate()
-        ->addCustomOption()
-        ->addData()
-        ->addImageToMediaGallery()
-        ->addOption()
+        ->__construct(Magento\Framework\Model\Context $context, Magento\Framework\Registry $registry, Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory, Magento\Framework\Api\AttributeValueFactory $customAttributeFactory, Magento\Store\Model\StoreManagerInterface $storeManager, Magento\Catalog\Api\ProductAttributeRepositoryInterface $metadataService, Magento\Catalog\Model\Product\Url $url, Magento\Catalog\Model\Product\Link $productLink, Magento\Catalog\Model\Product\Configuration\Item\OptionFactory $itemOptionFactory, Magento\CatalogInventory\Api\Data\StockItemInterfaceFactory $stockItemFactory, Magento\Catalog\Model\Product\OptionFactory $catalogProductOptionFactory, Magento\Catalog\Model\Product\Visibility $catalogProductVisibility, Magento\Catalog\Model\Product\Attribute\Source\Status $catalogProductStatus, Magento\Catalog\Model\Product\Media\Config $catalogProductMediaConfig, Magento\Catalog\Model\Product\Type $catalogProductType, Magento\Framework\Module\Manager $moduleManager, Magento\Catalog\Helper\Product $catalogProduct, Magento\Catalog\Model\ResourceModel\Product $resource, Magento\Catalog\Model\ResourceModel\Product\Collection $resourceCollection, Magento\Framework\Data\CollectionFactory $collectionFactory, Magento\Framework\Filesystem $filesystem, Magento\Framework\Indexer\IndexerRegistry $indexerRegistry, Magento\Catalog\Model\Indexer\Product\Flat\Processor $productFlatIndexerProcessor, Magento\Catalog\Model\Indexer\Product\Price\Processor $productPriceIndexerProcessor, Magento\Catalog\Model\Indexer\Product\Eav\Processor $productEavIndexerProcessor, Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository, Magento\Catalog\Model\Product\Image\CacheFactory $imageCacheFactory, Magento\Catalog\Model\ProductLink\CollectionProvider $entityCollectionProvider, Magento\Catalog\Model\Product\LinkTypeProvider $linkTypeProvider, Magento\Catalog\Api\Data\ProductLinkInterfaceFactory $productLinkFactory, Magento\Catalog\Api\Data\ProductLinkExtensionFactory $productLinkExtensionFactory, Magento\Catalog\Model\Product\Attribute\Backend\Media\EntryConverterPool $mediaGalleryEntryConverterPool, Magento\Framework\Api\DataObjectHelper $dataObjectHelper, Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface $joinProcessor, array $data, Magento\Eav\Model\Config $config)
+        ->addAttributeUpdate($code, $value, $store)
+        ->addCustomOption($code, $value, $product)
+        ->addData(array $arr)
+        ->addImageToMediaGallery($file, $mediaAttribute, $move, $exclude)
+        ->addOption(Magento\Catalog\Model\Product\Option $option)
         ->afterCommitCallback()
         ->afterDelete()
         ->afterDeleteCommit()
-        ->afterLoad()
-        ->afterSave()
-        ->beforeDelete()
-        ->beforeLoad()
-        ->beforeSave()
-        ->canAffectOptions()
-        ->canBeShowInCategory()
-        ->canConfigure()
+        ->formatUrlKey($str)
+        ->fromArray(array $data)
+        ->getAttributeDefaultValue($attributeCode)
+        ->getAttributeSetId() : 16 (string)
+        ->getAttributeText($attributeCode)
+        ->getAttributes($groupId, $skipSuper)
+        ->getAvailableInCategories() : array
+        ->getCacheIdTags() : array
+        ->getCacheTags() : array
+        ->getCalculatedFinalPrice() :  (NULL)
+        ->getCategory() :  (NULL)
+        ->getCategoryCollection() : Magento\Catalog\Model\ResourceModel\Category\Collection\Interceptor
         ...
     </pre>
     ```
    
-2. 如果是陣列
+    如果是 getter method 而且不需要帶參數的話，會直接把呼叫後的值秀出來看。
+
+3. 如果是陣列
     ```html
     <pre>
     Array(52) => 
@@ -133,13 +125,13 @@ composer require fishingboy/madump
     </pre>
     ```
    
-3. 如果只是一般的值
+4. 如果只是一般的值
     ```html
     <pre>1 (integer)</pre>
     ```
 
     ```html
-    <pre>1 (boolean)</pre>
+    <pre>true (boolean)</pre>
     ```
 
     ```html

@@ -42,7 +42,7 @@ class MaDump
                 foreach ($methods as $method) {
                     $method_params = self::getMethodParams($data, $method);
                     $attribute_output = self::getPadding($deep) . "->$method({$method_params})";
-                    if (preg_match("/^[a-z]+[A-Z]+/", $method)) {
+                    if (preg_match("/^get[A-Z]+/", $method)) {
                         try {
                             if (self::isNoParamMethod($data, $method)) {
                                 $method_return = $data->$method();
