@@ -18,74 +18,8 @@ class MaDump
      */
     public static function dump($data, bool $return_value = false, int $deep = 0)
     {
-        $output = "<pre>";
-        $attributes = [];
-        if (is_object($data)) {
-            $output .= get_class($data) . "\n";
-            foreach ($data as $key => $value) {
-                if (is_object($value)) {
-                    $class = get_class($value);
-                    $attributes[] = self::getPadding($deep) . "[$key] ($class)";
-                } else if (is_array($value)) {
-                    if (self::isNormalArray($value)) {
-                        $attributes[] = self::getPadding($deep) . "[$key] (Array)";
-                    } else {
-                        $attributes[] = self::getPadding($deep) . "[$key] (Key Value Array)";
-                    }
-                } else {
-                    $attributes[] = self::getPadding($deep) . "[$key] => " . self::dumpValue($value);
-                }
-            }
-
-            $methods = get_class_methods($data);
-            if (count($methods)) {
-                foreach ($methods as $method) {
-                    $method_params = self::getMethodParams($data, $method);
-                    $attribute_output = self::getPadding($deep) . "->$method({$method_params})";
-                    if (preg_match("/^get[A-Z]+/", $method)) {
-                        try {
-                            if (self::isNoParamMethod($data, $method)) {
-                                $method_return = $data->$method();
-                                if (is_object($method_return)) {
-                                    $attribute_output .= " : " . get_class($method_return);
-                                } elseif (is_array($method_return)) {
-                                    if (self::isNormalArray($method_return)) {
-                                        $attribute_output .= " : array";
-                                    } else {
-                                        $attribute_output .= " : key value array";
-                                    }
-                                } else {
-                                    $attribute_output .= " : " . self::dumpValue($method_return);
-                                }
-                            }
-                        } catch (\Exception $e) {
-                        } catch (\ArgumentCountError $e) {
-                        }
-                    }
-                    $attributes[] = $attribute_output;
-                }
-            }
-        } else if (is_array($data)) {
-            $count = count($data);
-            $output .= "Array($count) => \n";
-            $attributes = [];
-            foreach ($data as $key => $value) {
-                if (is_object($value)) {
-                    $value_output = "=> (" . get_class($value) . ")";
-                } else if (is_array($value)) {
-                    $value_output = "=> (Array)";
-                } else {
-                    $value_output = "=> " . self::dumpValue($value);
-                }
-                $attributes[] = self::getPadding($deep) . "[{$key}] $value_output";
-            }
-        } else {
-            $output .= self::dumpValue($data);
-        }
-
-        sort($attributes);
-        $output .= implode("\n", $attributes);
-        $output .= "</pre>";
+        $data_schema = MaDumpSchema::getSchema($data);
+        $output = MaDumpOutput::text($data_schema);
 
         if ($return_value) {
             return $output;
