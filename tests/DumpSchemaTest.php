@@ -48,17 +48,34 @@ class DumpSchemaTest extends TestCase
     public function test_dump_object2()
     {
         $object = new Car();
-        $response = MaDump::dump($object, true);
-        echo $response;
-        $this->assertEquals("<pre>Car
-    ->__construct()
-    ->getLength() : 1 (integer)
-    ->getLight() : Light
-    ->getLight2(bool \$flag, int \$on)
-    [attrs] (Key Value Array)
-    [items] (Array)
-    [length] => 1 (integer)
-    [light] (Light)</pre>", $response);
+        $response = MaDumpSchema::getSchema($object);
+        echo "<pre>response = " . print_r($response, true) . "</pre>\n";
+//        echo $response;
+        $this->assertEquals([
+            "type" => "object",
+            "class" => "Car",
+            "attributes" => [
+                "attrs" => ["type" => "array", "value" => "Key Value Array"],
+                "length" => ["type" => "value", "value" => 1],
+                "items" => ["type" => "array", "value" => "Array"],
+                "light" => ["type" => "object", "class" => "Light"],
+            ],
+            "methods" => [
+                "__construct()" => ["method" => "__construct()",]
+//    ->getLength() : 1 (integer)
+//    ->getLight() : Light
+//    ->getLight2(bool \$flag, int \$on)
+            ],
+        ], $response);
+//        $this->assertEquals("<pre>Car
+//    ->__construct()
+//    ->getLength() : 1 (integer)
+//    ->getLight() : Light
+//    ->getLight2(bool \$flag, int \$on)
+//    [attrs] (Key Value Array)
+//    [items] (Array)
+//    [length] => 1 (integer)
+//    [light] (Light)</pre>", $response);
     }
 }
 

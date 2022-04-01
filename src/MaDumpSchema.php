@@ -27,17 +27,27 @@ class MaDumpSchema
             $data_schema['class'] = get_class($data);
             foreach ($data as $key => $value) {
                 if (is_object($value)) {
-//                    $class = get_class($value);
-//                    $attributes[] = self::getPadding($deep) . "[$key] ($class)";
+                    $attributes[$key] = [
+                        "type" => "object",
+                        "class" => get_class($value)
+                    ];
                 } else if (is_array($value)) {
-//                    if (self::isNormalArray($value)) {
-//                        $attributes[] = self::getPadding($deep) . "[$key] (Array)";
-//                    } else {
-//                        $attributes[] = self::getPadding($deep) . "[$key] (Key Value Array)";
-//                    }
+                    if (self::isNormalArray($value)) {
+                        $attributes[$key] = [
+                            "type" => "array",
+                            "value" => "Array",
+                        ];
+                    } else {
+                        $attributes[$key] = [
+                            "type" => "array",
+                            "value" => "Key Value Array",
+                        ];
+                    }
                 } else {
-//                    $attributes[] = self::getPadding($deep) . "[$key] => " . self::dumpValue($value);
-                    $attributes[$key] = ["type" => "value", "value" => $value];
+                    $attributes[$key] = [
+                        "type" => "value",
+                        "value" => $value
+                    ];
                 }
             }
             $data_schema['attributes'] = $attributes;
