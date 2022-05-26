@@ -68,7 +68,7 @@ class MaDump
         $output = [];
         foreach ($params as $param) {
             if ($param->hasType()) {
-                $output[] = "{$param->getType()} \${$param->getName()}";
+                $output[] = "{$param->getType()->getName()} \${$param->getName()}";
             } else {
                 $output[] = "\${$param->getName()}";
             }
