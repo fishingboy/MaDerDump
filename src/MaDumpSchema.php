@@ -52,49 +52,51 @@ class MaDumpSchema
             }
             $data_schema['attributes'] = $attributes;
 
-//            $methods = get_class_methods($data);
-//            if (count($methods)) {
-//                foreach ($methods as $method) {
-//                    $method_params = self::getMethodParams($data, $method);
-//                    $attribute_output = self::getPadding($deep) . "->$method({$method_params})";
-//                    if (preg_match("/^get[A-Z]+/", $method)) {
-//                        try {
-//                            if (self::isNoParamMethod($data, $method)) {
-//                                $method_return = $data->$method();
-//                                if (is_object($method_return)) {
-//                                    $attribute_output .= " : " . get_class($method_return);
-//                                } elseif (is_array($method_return)) {
-//                                    if (self::isNormalArray($method_return)) {
-//                                        $attribute_output .= " : array";
-//                                    } else {
-//                                        $attribute_output .= " : key value array";
-//                                    }
-//                                } else {
-//                                    $attribute_output .= " : " . self::dumpValue($method_return);
-//                                }
-//                            }
-//                        } catch (\Exception $e) {
-//                        } catch (\ArgumentCountError $e) {
-//                        }
-//                    }
-//                    $attributes[] = $attribute_output;
-//                }
-//            }
+            $class_methods = get_class_methods($data);
+            if (count($class_methods)) {
+                $methods = [];
+                foreach ($class_methods as $method) {
+                    $value = null;
+                    $method_params = self::getMethodParams($data, $method);
+                    if (preg_match("/^get[A-Z]+/", $method)) {
+                        try {
+                            if (self::isNoParamMethod($data, $method)) {
+                                $method_return = $data->$method();
+                                if (is_object($method_return)) {
+                                    $value = get_class($method_return);
+                                } elseif (is_array($method_return)) {
+                                    if (self::isNormalArray($method_return)) {
+                                        $value = "array";
+                                    } else {
+                                        $value = "key value array";
+                                    }
+                                } else {
+                                    $value = self::dumpValue($method_return);
+                                }
+                            }
+                        } catch (\Exception $e) {
+                        } catch (\ArgumentCountError $e) {
+                        }
+                    }
+
+                    $methods[$method] = [
+                        "method" => $method,
+                        "params" => $method_params,
+                        "value" => $value,
+                    ];
+                }
+                $data_schema['methods'] = $methods;
+            }
         } else if (is_array($data)) {
-//            $count = count($data);
-//            $output .= "Array($count) => \n";
             $attributes = [];
             foreach ($data as $key => $value) {
                 $attribute_type = "";
                 if (is_object($value)) {
                     $attribute_type = "object";
-//                    $value_output = "=> (" . get_class($value) . ")";
                 } else if (is_array($value)) {
                     $attribute_type = "array";
-//                    $value_output = "=> (Array)";
                 } else {
                     $attribute_type = "value";
-//                    $value_output = "=> " . self::dumpValue($value);
                 }
                 $attributes[] = [
                     "type" => $attribute_type,
@@ -108,14 +110,6 @@ class MaDumpSchema
         }
 
         sort($attributes);
-//        $output .= implode("\n", $attributes);
-//        $output .= "</pre>";
-
-//        if ($return_value) {
-//            return $output;
-//        } else {
-//            echo $output;
-//        }
         return $data_schema;
     }
 
