@@ -150,14 +150,20 @@ class MaDumpSchema
     {
         $method_info = new \ReflectionMethod($data, $method);
         $params = $method_info->getParameters();
-        $output = [];
+        $output_params = [];
         foreach ($params as $param) {
             if ($param->hasType()) {
-                $output[] = "{$param->getType()} \${$param->getName()}";
+                $output_params[] = [
+                    "type" => $param->getType()->getName(),
+                    "name" => $param->getName(),
+                ];
             } else {
-                $output[] = "\${$param->getName()}";
+                $output_params[] = [
+                    "type" => "",
+                    "name" => $param->getName(),
+                ];
             }
         }
-        return implode(", ", $output);
+        return $output_params;
     }
 }

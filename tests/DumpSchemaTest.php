@@ -61,21 +61,12 @@ class DumpSchemaTest extends TestCase
                 "light" => ["type" => "object", "class" => "Light"],
             ],
             "methods" => [
-                "__construct()" => ["method" => "__construct()",]
-//    ->getLength() : 1 (integer)
-//    ->getLight() : Light
-//    ->getLight2(bool \$flag, int \$on)
+                "__construct" => ["method" => "__construct", "params" => [], "value" => null],
+                "getLength" => ["method" => "getLength", "params" => [], "value" => 1],
+                "getLight" => ["method" => "getLight", "params" => [], "value" => "Light"],
+                "getLight2" => ["method" => "getLight2", "params" => [["type" => "bool", "name" => "flag"], ["type" => "int", "name" => "on"]], "value" => null],
             ],
         ], $response);
-//        $this->assertEquals("<pre>Car
-//    ->__construct()
-//    ->getLength() : 1 (integer)
-//    ->getLight() : Light
-//    ->getLight2(bool \$flag, int \$on)
-//    [attrs] (Key Value Array)
-//    [items] (Array)
-//    [length] => 1 (integer)
-//    [light] (Light)</pre>", $response);
     }
 }
 
